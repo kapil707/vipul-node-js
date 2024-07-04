@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Search Page</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h1>Search Items</h1>
+  <input type="text" id="search-box" placeholder="Enter search keyword">
+  <ul id="results"></ul>
+
+  <script>
+    $(document).ready(function(){
+      $('#search-box').on('input', function() {
+        const query = $(this).val();
+        if (query.length > 2) {
+            $('#results').empty();
+          $.ajax({
+            url: '/medicines',
+            type: 'GET',
+            data: { id: query },
+            success: function(data) {
+              $('#results').empty();
+              data.forEach(item => {
+                $('#results').append(`<li>${item.item_name} - ${item.title} - <img src='https://www.drdweb.co.in/${item.image1}' width=50></li>`);
+              });
+            },
+            error: function(err) {
+              console.error('Error fetching search results:', err);
+            }
+          });
+        } else {
+          $('#results').empty();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
