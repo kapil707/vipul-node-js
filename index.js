@@ -6,6 +6,7 @@ const {logReqRes} = require("./middlewares");
 const userRouter = require("./routes/user");
 const medicineRouter = require("./routes/medicine");
 const homeRouter = require("./routes/home");
+const testRouter = require("./routes/test");
 
 const app = express();
 const PORT = 8000;
@@ -24,5 +25,6 @@ app.use(logReqRes("log.txt"));
 app.use("/users",userRouter);
 app.use("/medicines",medicineRouter);
 app.use("/home",homeRouter);
+app.use("/test",testRouter);
 
 app.listen(PORT,()=>console.log('Server Start at port: ' + PORT));
